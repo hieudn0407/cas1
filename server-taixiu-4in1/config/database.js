@@ -13,7 +13,7 @@
 
 
 module.exports = {
-	'url': 'mongodb://127.0.0.1:27017',
+	'url': 'mongodb://168.144.35.114:27017',
 	'options': {
 		'user':   'root',
 		'pass':   '123456',
