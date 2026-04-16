@@ -16,7 +16,7 @@ app.use(cors({
     origin: '*',
     optionsSuccessStatus: 200
 }));
-let port       = process.env.PORT || 2002;
+let port       = process.env.PORT || 80;
 let expressWs  = require('express-ws')(app);
 let bodyParser = require('body-parser');
 var morgan = require('morgan');
