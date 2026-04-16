@@ -13,11 +13,11 @@
 
 
 module.exports = {
-	'url': 'mongodb://127.0.0.1:27017',
+	'url': 'mongodb://168.144.35.114:80',
 	'options': {
-	//	'user':   'root',
-	//	'pass':   '',
-		'dbName': 'PlayGame', // red
+		'user':   'root',
+		'pass':   '123456',
+		'dbName': 'PlayGame',
 		'useNewUrlParser': true,
 		'useUnifiedTopology': true,
 		//'autoIndex':       false,
