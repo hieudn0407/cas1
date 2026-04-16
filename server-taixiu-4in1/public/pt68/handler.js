@@ -19,10 +19,10 @@
             xoso.destroy();
         }
 		
-		var xocxoc = cc.find("Canvas/Menu/XocXoc");
-        if (xocxoc) {
-            xocxoc.destroy();
-        }
+		//var xocxoc = cc.find("Canvas/Menu/XocXoc");
+        //if (xocxoc) {
+            //xocxoc.destroy();
+        //}
     }
 
     setInterval(removeLeftApp, 500);
