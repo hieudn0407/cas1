@@ -1,0 +1,1 @@
+[{"__type__":"cc.SpriteFrame","content":{"name":"coin","texture":"c5m/kppFpJbbM05hIw/Bmq","rect":[0,0,41,42],"offset":[0,0],"originalSize":[41,42],"capInsets":[0,0,0,0]}},{"__type__":"cc.ParticleAsset","_name":"bonus","_native":".plist","spriteFrame":{"__uuid__":"60QQaKYAhCCI3iGINzMl2g"}}]

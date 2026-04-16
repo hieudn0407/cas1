@@ -1,0 +1,97 @@
+
+XocDiaIcon.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Bat/Bat_03
+  rotate: false
+  xy: 192, 41
+  size: 188, 125
+  orig: 188, 125
+  offset: 0, 0
+  index: -1
+Bat/Bat_04
+  rotate: false
+  xy: 762, 370
+  size: 188, 129
+  orig: 188, 129
+  offset: 0, 0
+  index: -1
+Bat/Bat_05
+  rotate: false
+  xy: 572, 365
+  size: 188, 134
+  orig: 188, 134
+  offset: 0, 0
+  index: -1
+Bat/Bat_06
+  rotate: false
+  xy: 382, 358
+  size: 188, 141
+  orig: 188, 141
+  offset: 0, 0
+  index: -1
+Bat/Bat_07
+  rotate: false
+  xy: 2, 2
+  size: 188, 151
+  orig: 188, 151
+  offset: 0, 0
+  index: -1
+Bat/Bat_08
+  rotate: false
+  xy: 192, 340
+  size: 188, 159
+  orig: 188, 159
+  offset: 0, 0
+  index: -1
+Bat/Bat_09
+  rotate: false
+  xy: 2, 155
+  size: 188, 161
+  orig: 188, 161
+  offset: 0, 0
+  index: -1
+BongDo
+  rotate: false
+  xy: 382, 251
+  size: 185, 105
+  orig: 185, 105
+  offset: 0, 0
+  index: -1
+Khung2
+  rotate: false
+  xy: 192, 168
+  size: 177, 170
+  orig: 177, 170
+  offset: 0, 0
+  index: -1
+Tien1
+  rotate: false
+  xy: 382, 55
+  size: 132, 88
+  orig: 132, 88
+  offset: 0, 0
+  index: -1
+Tien2
+  rotate: false
+  xy: 382, 145
+  size: 119, 104
+  orig: 119, 104
+  offset: 0, 0
+  index: -1
+minigame-bolder
+  rotate: false
+  xy: 2, 318
+  size: 188, 181
+  orig: 188, 181
+  offset: 0, 0
+  index: -1
+xocdia
+  rotate: false
+  xy: 192, 3
+  size: 154, 36
+  orig: 154, 36
+  offset: 0, 0
+  index: -1

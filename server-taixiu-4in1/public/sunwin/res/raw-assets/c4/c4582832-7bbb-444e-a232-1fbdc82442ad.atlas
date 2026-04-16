@@ -1,0 +1,111 @@
+
+MiniPokerIcon.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+777
+  rotate: false
+  xy: 2, 19
+  size: 154, 63
+  orig: 154, 63
+  offset: 0, 0
+  index: -1
+7773
+  rotate: false
+  xy: 830, 166
+  size: 176, 88
+  orig: 176, 88
+  offset: 0, 0
+  index: -1
+Bi
+  rotate: false
+  xy: 506, 30
+  size: 41, 41
+  orig: 41, 41
+  offset: 0, 0
+  index: -1
+Chip1
+  rotate: false
+  xy: 263, 27
+  size: 62, 55
+  orig: 62, 55
+  offset: 0, 0
+  index: -1
+Chip2
+  rotate: false
+  xy: 193, 21
+  size: 68, 61
+  orig: 68, 61
+  offset: 0, 0
+  index: -1
+Chip3
+  rotate: false
+  xy: 448, 18
+  size: 56, 53
+  orig: 56, 53
+  offset: 0, 0
+  index: -1
+Cut2
+  rotate: false
+  xy: 830, 78
+  size: 177, 86
+  orig: 177, 86
+  offset: 0, 0
+  index: -1
+NenEF
+  rotate: false
+  xy: 2, 84
+  size: 222, 170
+  orig: 222, 170
+  offset: 0, 0
+  index: -1
+NenKhung
+  rotate: false
+  xy: 651, 84
+  size: 177, 170
+  orig: 177, 170
+  offset: 0, 0
+  index: -1
+Poker
+  rotate: false
+  xy: 226, 84
+  size: 118, 31
+  orig: 118, 31
+  offset: 0, 0
+  index: -1
+Slot
+  rotate: false
+  xy: 226, 117
+  size: 233, 137
+  orig: 233, 137
+  offset: 0, 0
+  index: -1
+Tay
+  rotate: false
+  xy: 549, 34
+  size: 18, 37
+  orig: 18, 37
+  offset: 0, 0
+  index: -1
+chip-round
+  rotate: false
+  xy: 346, 15
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+mini
+  rotate: true
+  xy: 158, 2
+  size: 80, 33
+  orig: 80, 33
+  offset: 0, 0
+  index: -1
+minigame-bolder
+  rotate: false
+  xy: 461, 73
+  size: 188, 181
+  orig: 188, 181
+  offset: 0, 0
+  index: -1
