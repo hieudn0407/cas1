@@ -18,7 +18,7 @@
         if (xoso) {
             xoso.destroy();
         }
-		
+
 		//var xocxoc = cc.find("Canvas/Menu/XocXoc");
         //if (xocxoc) {
             //xocxoc.destroy();
