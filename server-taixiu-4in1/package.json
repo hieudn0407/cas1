@@ -12,6 +12,7 @@
 		"bcrypt-nodejs": "0.0.3",
 		"bcryptjs": "^2.4.3",
 		"body-parser": "^1.19.0",
+		"canvas": "^2.11.2",
 		"cloudscraper": "^4.1.2",
 		"cors": "^2.8.5",
 		"cron": "^1.7.2",
@@ -40,7 +41,6 @@
 		"validator": "^11.1.0",
 		"voucher-code-generator": "^1.1.1"
 	},
-	"devDependencies": {},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/MrT98/RedVip.git"
