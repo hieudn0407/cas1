@@ -34,6 +34,7 @@
 	<meta name="x5-page-mode" content="app">
 
   <link rel="stylesheet" type="text/css" href="style-desktop.css"/>
+  <link rel="stylesheet" type="text/css" href="custom-style.css"/>
   <link rel="icon" href="favicon.ico"/>
 </head>
 <body>
@@ -43,6 +44,55 @@
       <span style="width: 0%"></span>
     </div>
   </div>
+  
+  <div id="ShopShopPopup" class="Hide">
+	<div id="ShopBackground">
+		<div id="Flat-Process">
+			<div class="amount-list">
+				<div class="amount-item active" data-value="100">100</div>
+				<div class="amount-item" data-value="300">300</div>
+				<div class="amount-item" data-value="500">500</div>
+				<div class="amount-item" data-value="1000">1,000</div>
+				<div class="amount-item" data-value="2000">2,000</div>
+				<div class="amount-item" data-value="3000">3,000</div>
+				<div class="amount-item" data-value="5000">5,000</div>
+				<div class="amount-item" data-value="10000">10,000</div>
+				<div class="amount-item" data-value="20000">20,000</div>
+				<div class="amount-item" data-value="30000">30,000</div>
+				<div class="amount-item" data-value="50000">50,000</div>
+			</div>
+		<span class="rs-text">Amount (100 - 50,000 RS)</span>	
+		<div id="inputValue" value="100">
+			<span id="rupee-amount">100</span>
+			<span>⮕</span>
+			<img src="res/raw-assets/6d/6db0467a-734b-466d-a9c9-aabad22273a2.png"></img>
+			<b id="red-amount">20,000</b>
+		</div>
+		
+		<div class="note">
+			<p>Note:</p>
+			<p>- Please scan the QR code to complete the payment before clicking Submit.</p>
+			<p>- After completing the payment and clicking Submit, please contact us via Telegram to verify your payment.</p>
+		</div>
+		<span class="rs-text" style="top: 138px; color: #0087ff;">1.Copy the below given UPI</span>	
+		<input id="inputUPI" type="text" value="12312312312@dasdad" readonly>
+		<span class="rs-text" style="top: 191px; font-size: 10px; color: red;">Tip: Dont save the UPI, get new UPI every time</span>	
+		
+		<span class="rs-text" style="top: 209px; color: #0087ff;">2.Need to enter your 12 Ref No (UTR)</span>
+		<button id="copyBtn">COPY</button>
+		<input id="inputUtr" type="number" placeholder="UTR/UPI Ref No/ UPI Transaction ID" pattern="^\d{12}$" maxlength="12" required>
+		<span class="rs-text" style="top: 261px; font-size: 10px; color: red;">Tip: Open your wallet and complete the transfer, record your Ref No after payment</span>
+		<!-- <img id="amount-qr" src="QR/QR1.png"></img> -->
+		<button id="napBtn" type="submit">Submit</button>
+		</div>
+        <button class="btnSelect" id="flatBtn">Flat</button>
+		<button id="rutBtn">History</button>
+		<button id="closeBtn"></button>
+		<span id="toastMsg" class="toast-msg"></span>
+	</div>
+</div>
+ 
+  
 <script src="src/settings.js" charset="utf-8"></script>
 <script src="main.js" charset="utf-8"></script>
 <script src="lang.js" charset="utf-8"></script>
@@ -70,6 +120,5 @@
     document.body.appendChild(cocos2d);
 })();
 </script>
-
 </body>
 </html>

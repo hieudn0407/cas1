@@ -13,8 +13,6 @@ function waitForCocos(callback) {
 
 waitForCocos(function () {
 
-    console.log("Cocos loaded ✔");
-
     let LANG_DATA = {};
 
     function normalizeText(str) {
@@ -125,7 +123,6 @@ waitForCocos(function () {
                 if (res.ok) {
 
                     LANG_DATA = await res.json();
-                    console.log(LANG_DATA);
                     startReplaceLoop();
                     return;
                 }

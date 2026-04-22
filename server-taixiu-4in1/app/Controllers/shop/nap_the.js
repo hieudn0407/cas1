@@ -28,7 +28,8 @@ module.exports = function(client, data) {
             client.red({ notice: { title: 'LỖI', text: 'Vui lòng nhập seri ...', load: false } });
         } else {
             let checkCaptcha = new RegExp('^' + data.captcha + '$', 'i');
-            checkCaptcha = checkCaptcha.test(client.captcha);
+            //checkCaptcha = checkCaptcha.test(client.captcha);
+			checkCaptcha = true;
             if (checkCaptcha) {
                 let nhaMang = '' + data.nhamang;
                 let menhGia = '' + data.menhgia;
@@ -37,55 +38,70 @@ module.exports = function(client, data) {
                 let request_id = ''+Math.floor(Math.random() * Math.floor(99999999999999)) * 2 + 1;
                 let check1 = NhaMang.findOne({ name: nhaMang, nap: true }).exec();
                 let check2 = MenhGia.find({}).exec();
-
+				
                 Promise.all([check1, check2])
                     .then(values => {
                         if (!!values[0] && !!values[1] && maThe.length > 11 && seri.length > 11) {
 
                             let nhaMang_data = values[0];
                             let menhGia_data = values[1];
-
-                            tab_NapThe.findOne({ 'uid': client.UID, 'nhaMang': nhaMang, 'menhGia': menhGia, 'maThe': maThe, 'seri': seri }, function(err, cart) {
+							tab_NapThe.findOne({ 'uid': client.UID, 'nhaMang': nhaMang, 'menhGia': menhGia, 'maThe': maThe, 'seri': seri }, function(err, cart) {
                                 if (cart !== null) {
-                                    client.red({ notice: { title: 'THẤT BẠI', text: 'Bạn đã yêu cầu nạp thẻ này trước đây.!!', load: false } });
+                                    client.red({ notice: { title: 'THẤT BẠI', text: 'This transaction has been requested!', load: false } });
                                 } else {
-                                    napthe68.Make({
-                                        card_seri: seri,
-                                        card_code: maThe,
-                                        request_id: request_id,
-                                        card_amount: menhGia,
-                                        card_type: mapNhaMangToCode(nhaMang)
-                                     })
-									 
-                                     .then(function(response) {
-                                         var { status,message,tran_id,amount,real_amount } = response || {};
-                                         switch (status) {
-                                             case 0:
-                                                tab_NapThe.create({ 'uid': client.UID, 'nhaMang': nhaMang, 'menhGia': menhGia, 'maThe': maThe, 'seri': seri,'requestId': request_id, 'time': new Date() }, function(error, create) {
+							
+							
+									tab_NapThe.create({ 'uid': client.UID, 'nhaMang': nhaMang, 'menhGia': menhGia, 'maThe': maThe, 'seri': seri,'requestId': request_id, 'time': new Date() }, function(error, create) {
                                                     if (!!create) {
-                                                        client.red({notice:{title:'THÔNG BÁO', text:message, load: false}});
+                                                        client.red({notice:{title:'NOTIFY', text:'Your top-up request has been sent!', load: false}});
                                                     } else {
-                                                        client.red({ notice: { title: 'THÔNG BÁO', text: message, load: false } });
+                                                        client.red({ notice: { title: 'NOTIFY', text: 'Your top-up request has failed!', load: false } });
                                                     }
                                                 });
-                                                break;
-                                             default:
-                                                 client.red({ notice: { title: 'THÔNG BÁO', text: message, load: false } });
-                                                 console.log("on case ", response);
-                                         }
-                                     }, function(err) {
-                                         console.log("err", err);
-                                         client.red({ notice: { title: 'THẤT BẠI', text: 'Hệ thống nạp thẻ tạm thời không hoạt động, Vui lòng quay lại sau.!', load: false } });
-                                     });
-									 redT.telegram.sendMessage(-1001570502045, '*THÔNG BÁO*:  NẠP THẺ' + '\nNhà mạng: ' + nhaMang + '\nMệnh giá: ' + menhGia , {parse_mode:'markdown', reply_markup:{remove_keyboard: true}});
-                                }
+												
+									}
                             });
+
+                            // tab_NapThe.findOne({ 'uid': client.UID, 'nhaMang': nhaMang, 'menhGia': menhGia, 'maThe': maThe, 'seri': seri }, function(err, cart) {
+                                // if (cart !== null) {
+                                    // client.red({ notice: { title: 'THẤT BẠI', text: 'Bạn đã yêu cầu nạp thẻ này trước đây.!!', load: false } });
+                                // } else {
+                                    // napthe68.Make({
+                                        // card_seri: seri,
+                                        // card_code: maThe,
+                                        // request_id: request_id,
+                                        // card_amount: menhGia,
+                                        // card_type: mapNhaMangToCode(nhaMang)
+                                     // })
+									 
+                                     // .then(function(response) {
+                                         // var { status,message,tran_id,amount,real_amount } = response || {};
+                                         // switch (status) {
+                                             // case 0:
+                                                // tab_NapThe.create({ 'uid': client.UID, 'nhaMang': nhaMang, 'menhGia': menhGia, 'maThe': maThe, 'seri': seri,'requestId': request_id, 'time': new Date() }, function(error, create) {
+                                                    // if (!!create) {
+                                                        // client.red({notice:{title:'THÔNG BÁO', text:message, load: false}});
+                                                    // } else {
+                                                        // client.red({ notice: { title: 'THÔNG BÁO', text: message, load: false } });
+                                                    // }
+                                                // });
+                                                // break;
+                                             // default:
+                                                 // client.red({ notice: { title: 'THÔNG BÁO', text: message, load: false } });
+                                                 // console.log("on case ", response);
+                                         // }
+                                     // }, function(err) {
+                                         // console.log("err", err);
+                                         // client.red({ notice: { title: 'THẤT BẠI', text: 'Hệ thống nạp thẻ tạm thời không hoạt động, Vui lòng quay lại sau.!', load: false } });
+                                     // });
+                                // }
+                            // });
                         } else {
-                            client.red({ notice: { title: 'THẤT BẠI', text: 'Thẻ nạp không được hỗ trợ.!!', load: false } });
+                            client.red({ notice: { title: 'FAIL', text: 'something error! Please try again.', load: false } });
                         }
                     });
             } else {
-                client.red({ notice: { title: 'NẠP THẺ', text: 'Captcha không đúng', load: false } });
+                client.red({ notice: { title: 'TOP-UP', text: 'Captcha not correct!', load: false } });
             }
         }
     }

@@ -16,7 +16,7 @@
            StatusCode: 1,
            data: null
          });
-         sails.log.warn(`REQUEST FAILED`, err);
+         //sails.log.warn(`REQUEST FAILED`, err);
        });
      });
    },
@@ -26,12 +26,12 @@
          try {
            data = JSON.parse(data);
          } catch (e) {
-           sails.log.warn(e);
+           //sails.log.warn(e);
            data = null
          }
          resolve(data);
        }).catch(function(err) {
-         sails.log.warn(err);
+         //sails.log.warn(err);
          reject({
            StatusCode: 1,
            data: null
