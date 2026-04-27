@@ -28,7 +28,8 @@ mongoose.connect(configDB.url, configDB.options)
 				.map(s => s.trim())
 				.filter(s => s.length > 0);
 				
-            console.log("arrData",arrData)
+            console.log(JSON.stringify(data));
+			console.log(data.length);
 			
             for(let i =0 ;i <arrData.length;i++)
             {
@@ -36,8 +37,6 @@ mongoose.connect(configDB.url, configDB.options)
             }
             
           })
-
-        console.log('End');
     })
     .catch(function(error) {
         console.log(error);
@@ -54,7 +53,7 @@ function addItemDB (item){
         if (!!errC) {
 
         }else{
-            console.log("AAA",AAA)
+            //console.log("AAA",AAA)
         }
             
     });
