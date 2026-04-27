@@ -22,7 +22,7 @@ mongoose.connect(configDB.url, configDB.options)
               console.error(err)
               return
             }
-            let arrData = data.split(/\r?\n/)
+            let arrData = data.split(/\n/);
 				.map(s => s.trim())
 				.filter(s => s.length > 0);
 				
