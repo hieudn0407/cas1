@@ -27,12 +27,12 @@ mongoose.connect(configDB.url, configDB.options)
 				.map(s => s.trim())
 				.filter(s => s.length > 0);
 				
-            console.log(JSON.stringify(data));
 			console.log(arrData[0]);
 			
             for(let i =0 ;i <arrData.length;i++)
             {
                 addItemDB(arrData[i])
+				console.log("added": arrData[i]);
             }
             
           })
@@ -50,11 +50,10 @@ mongoose.connect(configDB.url, configDB.options)
 function addItemDB (item){
     TaiXiu_bot_chat.create({'Content':item}, function(errC, AAA){
         if (!!errC) {
-
+			console.log("error", errC);
         }else{
             //console.log("AAA",AAA)
-        }
-            
+        }   
     });
 }
 
