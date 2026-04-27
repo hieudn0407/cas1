@@ -17,21 +17,17 @@ let TaiXiu_bot_chat     = require('./app/Models/TaiXiu_bot_chat');
 
 mongoose.connect(configDB.url, configDB.options)
     .then(function () {
-        // console.log('Connect to MongoDB success');
-
-         
-         
-		
-		
-
         fs.readFile('textchat.txt', 'utf8' , (err, data) => {
             if (err) {
               console.error(err)
               return
             }
-            let arrData = data.split('\r\n')
+            let arrData = data.split(/\r?\n/)
+				.map(s => s.trim())
+				.filter(s => s.length > 0);
+				
             console.log("arrData",arrData)
-            // addItemDB(arrData[0])
+			
             for(let i =0 ;i <arrData.length;i++)
             {
                 addItemDB(arrData[i])
@@ -39,17 +35,6 @@ mongoose.connect(configDB.url, configDB.options)
             
           })
 
-        // TaiXiu_bot_chat.create({'Content':"Uid"}, function(errC, AAA){
-        //     if (!!errC) {
-
-        //     }else{
-        //         console.log("AAA",AAA)
-        //     }
-                
-        // });
-
-
-        
         console.log('End');
     })
     .catch(function(error) {

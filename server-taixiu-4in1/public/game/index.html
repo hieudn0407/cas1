@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>INDIA789</title>
+
+	<!--http://www.html5rocks.com/en/mobile/mobifying/-->
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1, minimum-scale=1,maximum-scale=1"/>
+
+	<!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- force webkit on 360 -->
+	<meta name="renderer" content="webkit"/>
+	<meta name="force-rendering" content="webkit"/>
+	<!-- force edge on IE -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="msapplication-tap-highlight" content="no">
+
+	<!-- force full screen on some browser -->
+	<meta name="full-screen" content="yes"/>
+	<meta name="x5-fullscreen" content="true"/>
+	<meta name="360-fullscreen" content="true"/>
+	
+	<!-- force screen orientation on some browser -->
+	<meta name="screen-orientation" content=""/>
+	<meta name="x5-orientation" content="">
+
+	<!--fix fireball/issues/3568 -->
+	<!--<meta name="browsermode" content="application">-->
+	<meta name="x5-page-mode" content="app">
+
+  <link rel="stylesheet" type="text/css" href="style-desktop.css"/>
+  <link rel="stylesheet" type="text/css" href="custom-style.css"/>
+  <link rel="icon" href="favicon.ico"/>
+</head>
+<body>
+<canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="0"></canvas>
+  <div id="splash">
+    <div class="progress-bar stripes">
+      <span style="width: 0%"></span>
+    </div>
+  </div>
+  
+  <div id="ShopShopPopup" class="Hide">
+	<div id="ShopBackground">
+		<div id="Flat-Process">
+			<div class="amount-list">
+				<div class="amount-item active" data-value="100">100</div>
+				<div class="amount-item" data-value="300">300</div>
+				<div class="amount-item" data-value="500">500</div>
+				<div class="amount-item" data-value="1000">1,000</div>
+				<div class="amount-item" data-value="2000">2,000</div>
+				<div class="amount-item" data-value="3000">3,000</div>
+				<div class="amount-item" data-value="5000">5,000</div>
+				<div class="amount-item" data-value="10000">10,000</div>
+				<div class="amount-item" data-value="20000">20,000</div>
+				<div class="amount-item" data-value="30000">30,000</div>
+				<div class="amount-item" data-value="50000">50,000</div>
+			</div>
+			<span class="rs-text">Amount (100 - 50,000 RS)</span>	
+			<div id="inputValue" value="100">
+				<span id="rupee-amount">100</span>
+				<span>⮕</span>
+				<img src="res/raw-assets/6d/6db0467a-734b-466d-a9c9-aabad22273a2.png"></img>
+				<b id="red-amount">20,000</b>
+			</div>
+			
+			<div class="note">
+				<p>Notes:</p>
+				<p>- Please transfer the <a style="color: red;">correct amount of money</a> for the deposit.</p>
+				<p>- For any cases of overpayment or underpayment, please contact customer service.</p>
+				<p>- Please <a style="color: red;">make the payment</a> before clicking submit.</p>
+			</div>
+			<span class="rs-text" style="top: 138px; color: #0087ff;">1.Copy the below given UPI</span>	
+			<input id="inputUPI" type="text" value="" readonly>
+			<span class="rs-text" style="top: 191px; font-size: 10px; color: red;">Tip: Dont save the UPI, get new UPI every time</span>	
+			
+			<span class="rs-text" style="top: 209px; color: #0087ff;">2.Need to enter your 12 Ref No (UTR)</span>
+			<button id="copyBtn">COPY</button>
+			<input id="inputUtr" type="number" placeholder="UTR/UPI Ref No/ UPI Transaction ID" pattern="^\d{12}$" maxlength="12" required>
+			<span class="rs-text" style="top: 261px; font-size: 10px; color: red;">Tip: Open your wallet and complete the transfer, record your Ref No after payment</span>
+			<button id="napBtn" type="submit">Submit</button>
+		</div>
+		
+		<div id="FlatHistory" class="Hide">
+			<div class="container"> 
+				<table id="dataTable"> 
+					<thead> 
+						<tr> 
+							<th class="col-time">Time</th> 
+							<th class="col-type">Type</th> 
+							<th class="col-currency">Currency</th> 
+							<th class="col-received">Received</th> 
+							<th class="col-detail">UTR</th> 
+							<th class="col-status">Status</th> 
+						</tr> 
+					</thead> 
+					<tbody>
+					</tbody> 
+				</table> 
+			</div>
+			<div class="pagination" id="pagination"></div> 
+		</div>
+		
+		<div id="Withdraw" class="Hide">
+			<div class="note" style="width: 205px; top: 84px; height: 155px;">
+				<p>Notes:</p>
+				<p style="font-size: 10px;">- <a style="color: red;">3%</a> of the withdrawal amount will be deducted as <a style="color: red;">bank commission</a>.</p>
+				<p style="font-size: 10px;">- Please double check the withdrawal information, if withdrawal failed or you have any other questions, please contact us.</p>
+				<p style="font-size: 10px;">- The <a style="color: red;">minimum</a> withdrawal amount for RED is <a style="color: red;">30,000</a> and the <a style="color: red;">maximum</a> is <a style="color: red;">2,000,000</a>.</p>
+			</div>
+		
+			<span class="rs-text" style="top: 70px; left: 285px; color: #616161;">Account Number</span>	
+			<input id="inputBankNumber" type="text" maxlength="20" placeholder="Enter Acconut Number" required>
+			
+			<span class="rs-text" style="top: 130px; color: #616161; left: 285px;">Bank IFSC Code</span>
+			<input id="inputBankIFSC" type="text" placeholder="Enter Bank IFSC Code" maxlength="20" required>
+			
+			<span class="rs-text" style="top: 190px; color: #616161; left: 285px;">Withdrawal Amount</span>
+			<input id="inputWithdrawAmount" type="text" placeholder="Withdraw Amount" pattern="\d{5}" maxlength="7" min="200" max="20000" value="0" required>
+			<button id="withdrawFastMinBtn" class="withdrawFastBtn" style="top: 208px; left: 428px; padding: 8px 0px 0px 10px; height: 30px; width: 40px;">Min</button>
+			<button id="withdrawFastMaxBtn" class="withdrawFastBtn" style="top: 208px; left: 470px; padding: 8px 0px 0px 10px; height: 30px; width: 40px;">Max</button>
+			<span class="rs-text" style="top: 234px; color: #616161;left: 285px; font-size: 8px; display: flex; align-items: center; gap: 3px; justify-content: left;">
+				<span>Available:</span> 
+				<img style="width: 12px;" src="res/raw-assets/6d/6db0467a-734b-466d-a9c9-aabad22273a2.png"></img> 
+				<span id="availableRed" style="color: #00ad1f; font-size: 10px; font-weight: bold;">0</span>
+			</span>
+			
+			<span class="rs-text" style="top: 217px; color: #616161; left: 519px;">
+				<span>Estimated Payout: </span>
+				<span><a id="withdrawRsAmount" style="color: #00c122; font-size: 15px; font-weight: bold;">0</a> RS</span>
+			</span>
+			
+			<button id="withdrawSubmit" type="submit">Submit</button>
+		</div>
+		
+		<div id="WidthdrawHistory" class="Hide">
+			<div class="container"> 
+				<table id="WidthdrawHistoryDt" style="border-collapse: collapse;"> 
+					<thead> 
+						<tr> 
+							<th style="width: 20%;">Time</th> 
+							<th style="width: 20%;">Account Number</th> 
+							<th style="width: 20%;">IFSC Code</th> 
+							<th style="width: 10%;">Withdraw</th> 
+							<th style="width: 10%;">RS</th> 
+							<th style="width: 20%;">Status</th> 
+						</tr> 
+					</thead> 
+					<tbody>
+					</tbody> 
+				</table> 
+			</div>
+			<div class="pagination" id="WithdrawPagination"></div> 
+		</div>
+		
+        <button class="btnSelect" id="flatBtn">Flat</button>
+		<button id="rutBtn">Flat History</button>
+		<button id="withdrawBtn">Withdraw</button>
+		<button id="withdrawHistoryBtn">Withdraw History</button>
+		<button id="closeBtn"></button>
+		<span id="toastMsg" class="toast-msg"></span>
+	</div>
+</div>
+  
+<script src="src/settings.js" charset="utf-8"></script>
+<script src="main.js" charset="utf-8"></script>
+<script src="lang.js" charset="utf-8"></script>
+<script src="handler.js" charset="utf-8"></script>
+<script type="text/javascript">
+(function () {
+    // open web debugger console
+    if (typeof VConsole !== 'undefined') {
+        window.vConsole = new VConsole();
+    }
+
+    var splash = document.getElementById('splash');
+    splash.style.display = 'block';
+
+    var cocos2d = document.createElement('script');
+    cocos2d.async = true;
+    cocos2d.src = window._CCSettings.debug ? 'cocos2d-js.js' : 'cocos2d-js-min.js';
+
+    var engineLoaded = function () {
+        document.body.removeChild(cocos2d);
+        cocos2d.removeEventListener('load', engineLoaded, false);
+        window.boot();
+    };
+    cocos2d.addEventListener('load', engineLoaded, false);
+    document.body.appendChild(cocos2d);
+})();
+</script>
+</body>
+</html>

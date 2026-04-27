@@ -48,6 +48,7 @@ let XocXoc = function(io){
 			this.phien = last.id+1;
 		}
 		this.play();
+		console.log("Play 1");
 	}.bind(this));
 }
 
@@ -109,7 +110,7 @@ XocXoc.prototype.play = function(){
 			}else{
 				this.thanhtoan();
 				///**
-				if (!!this.botList.length && this.time > 8) {
+				if (this.botList && this.botList.length > 0 && this.time > 8) {
 					let userCuoc = (Math.random()*18)>>0;
 					for (let i = 0; i < userCuoc; i++) {
 						let dataT = this.botList[i];
@@ -254,6 +255,7 @@ XocXoc.prototype.thanhtoan = function(dice = null){
 						return st.bet > 10000;
 					});
 					this.play();
+					console.log("Play 2");
 					if (arrayOfResults.length) {
 						arrayOfResults.sort(function(a, b){
 							return b.bet-a.bet;
@@ -282,6 +284,7 @@ XocXoc.prototype.thanhtoan = function(dice = null){
 				white4 = null;
 
 				this.play();
+				console.log("Play 3");
 			}
 		}.bind(this));
 	}else{

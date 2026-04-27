@@ -14,10 +14,6 @@ console.log(configDB);
 
 mongoose.connect(configDB.url, configDB.options)
     .then(function () {
-        // console.log('Connect to MongoDB success');
-
-         
-         
 		let TaiXiu_User     = require('./app/Models/TaiXiu_user');
 		let MiniPoker_User  = require('./app/Models/miniPoker/miniPoker_users');
 		let Bigbabol_User   = require('./app/Models/BigBabol/BigBabol_users');
