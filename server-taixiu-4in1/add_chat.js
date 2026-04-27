@@ -32,7 +32,7 @@ mongoose.connect(configDB.url, configDB.options)
             for(let i =0 ;i <arrData.length;i++)
             {
                 addItemDB(arrData[i])
-				console.log("added": arrData[i]);
+				console.log("added: ", arrData[i]);
             }
             
           })
@@ -50,7 +50,7 @@ mongoose.connect(configDB.url, configDB.options)
 function addItemDB (item){
     TaiXiu_bot_chat.create({'Content':item}, function(errC, AAA){
         if (!!errC) {
-			console.log("error", errC);
+			console.log("error: ", errC);
         }else{
             //console.log("AAA",AAA)
         }   
