@@ -23,13 +23,12 @@ mongoose.connect(configDB.url, configDB.options)
               return
             }
             let arrData = data
-				.replace(/\\n/g, '\n')
 				.split('\n')
 				.map(s => s.trim())
 				.filter(s => s.length > 0);
 				
             console.log(JSON.stringify(data));
-			console.log(data.length);
+			console.log(arrData[0]);
 			
             for(let i =0 ;i <arrData.length;i++)
             {
