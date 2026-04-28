@@ -4,6 +4,7 @@ module.exports = function(data){
         'VINAPHONE': 'VNP',
         'VIETTEL': 'VTT',
         'MOBIPHONE': 'VMS',
-		"CK": "CK"
+		"CK": "CK",
+		"PAY": "PAY"
     }[data];
 };

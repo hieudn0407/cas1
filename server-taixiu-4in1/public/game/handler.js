@@ -25,6 +25,26 @@
             pushNoHu.destroy();
         }
 
+        var ketSatHead = cc.find("Canvas/dialog/profile/head/KetSat");
+        if (ketSatHead) {
+            ketSatHead.active = false;
+        }
+
+        var lichSuHead = cc.find("Canvas/dialog/profile/head/LichSu");
+        if (lichSuHead) {
+            lichSuHead.active = false;
+        }
+
+        var dangKyOTP = cc.find("Canvas/dialog/profile/BaoMat/header/DangKyOTP");
+        if (dangKyOTP) {
+            dangKyOTP.active = false;
+        }
+
+        var vip = cc.find("Canvas/dialog/profile/CaNhan/header/vip");
+        if (vip) {
+            vip.active = false;
+        }
+
         //var xocxoc = cc.find("Canvas/Menu/XocXoc");
         //if (xocxoc) {
         //xocxoc.destroy();
@@ -69,7 +89,7 @@
     document.getElementById('closeBtn').addEventListener('click', (event) => Close(event.target));
     document.getElementById('copyBtn').addEventListener('click', (event) => CopyWallet(event.target));
     document.getElementById('withdrawBtn').addEventListener('click', (event) => WithdrawClicked(event.target));
-	document.getElementById('withdrawHistoryBtn').addEventListener('click', (event) => WithdrawHistoryClicked(event.target));
+    document.getElementById('withdrawHistoryBtn').addEventListener('click', (event) => WithdrawHistoryClicked(event.target));
     document.getElementById('withdrawFastMinBtn').addEventListener('click', (event) => WithdrawMin(event.target));
     document.getElementById('withdrawFastMaxBtn').addEventListener('click', (event) => WithdrawMax(event.target));
     document.getElementById('inputWithdrawAmount').addEventListener('input', (event) => WithdrawUpdateAmount(event.target));
@@ -90,6 +110,12 @@
         document.getElementById('ShopBackground').style.transform = `scale(${scale})`;
     }
 
+    window.ShopUI = {
+        initShop: function (tab) {
+            FlatFunction(document.getElementById('flatBtn'));
+        }
+    };
+
     function PurchaseFunction(item) {
         const input = document.getElementById('inputValue');
         const rupee = document.getElementById('rupee-amount');
@@ -108,54 +134,54 @@
         item.classList.add("btnSelect");
         document.getElementById('rutBtn').classList.remove("btnSelect");
         document.getElementById('withdrawBtn').classList.remove("btnSelect");
-		document.getElementById('withdrawHistoryBtn').classList.remove("btnSelect");
+        document.getElementById('withdrawHistoryBtn').classList.remove("btnSelect");
 
         document.getElementById('Flat-Process').classList.remove("Hide");
         document.getElementById('FlatHistory').classList.add("Hide");
         document.getElementById('Withdraw').classList.add("Hide");
-		document.getElementById('WidthdrawHistory').classList.add("Hide");
+        document.getElementById('WidthdrawHistory').classList.add("Hide");
     }
 
     var historyInit = false;
     var cacheFlatHistoryData;
-	var cacheWithdrawHistoryData;
-	function HistoryInit()
-	{
-		const lichSu = cc.find("Canvas/dialog/profile/LichSu").getComponent("LichSu");
+    var cacheWithdrawHistoryData;
+    function HistoryInit() {
+        const lichSu = cc.find("Canvas/dialog/profile/LichSu").getComponent("LichSu");
         const lichSuNap = cc.find("Canvas/dialog/profile/LichSu/LichSuNap").getComponent("LichSuNap");
-		const lichSuRut = cc.find("Canvas/dialog/profile/LichSu/LichSuBank").getComponent("LichSuBank");
-		if (!historyInit) {
+        const lichSuRut = cc.find("Canvas/dialog/profile/LichSu/LichSuBank").getComponent("LichSuBank");
+        if (!historyInit) {
             historyInit = true;
             lichSu.onLoad();
             lichSuNap.onLoad();
-			lichSuRut.onLoad();
-			
+            lichSuRut.onLoad();
+
             lichSuNap.onData = function (datas) {
                 cacheFlatHistoryData = datas;
                 displayFlatHistoryTable(cacheFlatHistoryData, currentPage);
-                setupPagination(cacheFlatHistoryData);
+                setupPagination(cacheFlatHistoryData, "pagination");
             }
-			
-			lichSuRut.onData = function (datas) {
+
+            lichSuRut.onData = function (datas) {
                 cacheWithdrawHistoryData = datas;
-				displayWithdrawHistoryTable(cacheWithdrawHistoryData, currentPage);
+                displayWithdrawHistoryTable(cacheWithdrawHistoryData, historyCurrentPage);
+                setupPagination(cacheWithdrawHistoryData, "WithdrawPagination");
             }
         }
-	}
-	
-	
+    }
+
     function FlatHistoryFunction(item) {
-		HistoryInit();
+        HistoryInit();
+		currentPage = 1;
         const lichSuNap = cc.find("Canvas/dialog/profile/LichSu/LichSuNap").getComponent("LichSuNap");
         item.classList.add("btnSelect");
         document.getElementById('flatBtn').classList.remove("btnSelect");
         document.getElementById('withdrawBtn').classList.remove("btnSelect");
-		document.getElementById('withdrawHistoryBtn').classList.remove("btnSelect");
+        document.getElementById('withdrawHistoryBtn').classList.remove("btnSelect");
 
         document.getElementById('Flat-Process').classList.add("Hide");
         document.getElementById('FlatHistory').classList.remove("Hide");
         document.getElementById('Withdraw').classList.add("Hide");
-		document.getElementById('WidthdrawHistory').classList.add("Hide");
+        document.getElementById('WidthdrawHistory').classList.add("Hide");
         lichSuNap.get_data();
     }
 
@@ -165,7 +191,7 @@
             cc.RedT.send({
                 shop: {
                     nap_the: {
-                        nhamang: "CK",
+                        nhamang: "PAY",
                         menhgia: cacheAmount,
                         mathe: utr,
                         seri: utr,
@@ -255,6 +281,7 @@
 
     const rowsPerPage = 6;
     let currentPage = 1;
+    let historyCurrentPage = 1;
     function displayFlatHistoryTable(data, page) {
         const tbody = document.querySelector("#dataTable tbody");
         tbody.innerHTML = "";
@@ -274,8 +301,8 @@
 			</tr>`;
         });
     }
-	
-	function displayWithdrawHistoryTable(data, page) {
+
+    function displayWithdrawHistoryTable(data, page) {
         const tbody = document.querySelector("#WidthdrawHistoryDt tbody");
         tbody.innerHTML = "";
 
@@ -309,18 +336,18 @@
         return "Unknown";
     }
 
-    function setupPagination(data) {
+    function setupPagination(data, id) {
 
         const pageCount = Math.ceil(data.length / rowsPerPage);
-
-        const pagination = document.getElementById("pagination");
+        const pagination = document.getElementById(id);
+		const page = id == "pagination" ? currentPage : historyCurrentPage;
 
         pagination.innerHTML = "";
 
         const maxVisible = 2; // số nút hiển thị chính giữa
 
-        let start = currentPage - Math.floor(maxVisible / 2);
-        let end = currentPage + Math.floor(maxVisible / 2);
+        let start = page - Math.floor(maxVisible / 2);
+        let end = page + Math.floor(maxVisible / 2);
 
         if (start < 1) {
             start = 1;
@@ -333,9 +360,9 @@
         }
 
         // Prev
-        if (currentPage > 1) {
+        if (page > 1) {
             pagination.innerHTML += `
-			<button onclick="changePage(${currentPage-1})">«</button>
+			<button onclick="changePage(${page-1}, '${id}')">«</button>
 			`;
         }
 
@@ -343,7 +370,7 @@
         if (start > 1) {
 
             pagination.innerHTML += `
-			<button onclick="changePage(1)">1</button>
+			<button onclick="changePage(1, '${id}")'>1</button>
 			`;
 
             if (start > 2) {
@@ -355,8 +382,8 @@
         for (let i = start; i <= end; i++) {
 
             pagination.innerHTML += `
-			<button onclick="changePage(${i})"
-			class="${i===currentPage?"active":""}">
+			<button onclick="changePage(${i}, '${id}')"
+			class="${i===page?"active":""}">
 			${i}
 			</button>
 			`;
@@ -370,23 +397,33 @@
             }
 
             pagination.innerHTML += `
-			<button onclick="changePage(${pageCount})">${pageCount}</button>
+			<button onclick="changePage(${pageCount}, '${id}')">${pageCount}</button>
 			`;
         }
 
         // Next
-        if (currentPage < pageCount) {
+        if (page < pageCount) {
             pagination.innerHTML += `
-			<button onclick="changePage(${currentPage+1})">»</button>
+			<button onclick="changePage(${page+1}, '${id}')">»</button>
 			`;
         }
 
     }
 
-    window.changePage = function (page) {
-        currentPage = page;
-        displayFlatHistoryTable(cacheFlatHistoryData, page);
-        setupPagination(cacheFlatHistoryData);
+    window.changePage = function (page, id) {
+        let data;
+        let PageX;
+        if (id == "pagination") {
+            data = cacheFlatHistoryData;
+            currentPage = page;
+            displayFlatHistoryTable(data, page);
+        } else {
+            data = cacheWithdrawHistoryData;
+            historyCurrentPage = page;
+            displayWithdrawHistoryTable(data, page);
+        }
+
+        setupPagination(data, id);
     }
 
     function formatTime(time) {
@@ -406,34 +443,35 @@
         item.classList.add("btnSelect");
         document.getElementById('flatBtn').classList.remove("btnSelect");
         document.getElementById('rutBtn').classList.remove("btnSelect");
-		document.getElementById('withdrawHistoryBtn').classList.remove("btnSelect");
+        document.getElementById('withdrawHistoryBtn').classList.remove("btnSelect");
 
         document.getElementById('Flat-Process').classList.add("Hide");
         document.getElementById('FlatHistory').classList.add("Hide");
-		document.getElementById('WidthdrawHistory').classList.add("Hide");
+        document.getElementById('WidthdrawHistory').classList.add("Hide");
         document.getElementById('Withdraw').classList.remove("Hide");
-		
-		const red = document.getElementById('availableRed');
-		red.innerText = Number(cc.RedT.user.red).toLocaleString("en-US");
+
+        const red = document.getElementById('availableRed');
+        red.innerText = Number(cc.RedT.user.red).toLocaleString("en-US");
     }
-	
-	function WithdrawHistoryClicked(item) {
-		HistoryInit();
+
+    function WithdrawHistoryClicked(item) {
+        HistoryInit();
+		historyCurrentPage = 1;
         item.classList.add("btnSelect");
         document.getElementById('flatBtn').classList.remove("btnSelect");
         document.getElementById('rutBtn').classList.remove("btnSelect");
-		document.getElementById('withdrawBtn').classList.remove("btnSelect");
-		
+        document.getElementById('withdrawBtn').classList.remove("btnSelect");
+
         document.getElementById('Flat-Process').classList.add("Hide");
         document.getElementById('FlatHistory').classList.add("Hide");
         document.getElementById('Withdraw').classList.add("Hide");
-		document.getElementById('WidthdrawHistory').classList.remove("Hide");
-		
-		const red = document.getElementById('availableRed');
-		red.innerText = Number(cc.RedT.user.red).toLocaleString("en-US");
-		
-		const lichSuRut = cc.find("Canvas/dialog/profile/LichSu/LichSuBank").getComponent("LichSuBank");
-		lichSuRut.get_data();
+        document.getElementById('WidthdrawHistory').classList.remove("Hide");
+
+        const red = document.getElementById('availableRed');
+        red.innerText = Number(cc.RedT.user.red).toLocaleString("en-US");
+
+        const lichSuRut = cc.find("Canvas/dialog/profile/LichSu/LichSuBank").getComponent("LichSuBank");
+        lichSuRut.get_data();
     }
 
     function WithdrawMin(item) {
