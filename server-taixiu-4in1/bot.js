@@ -36,7 +36,7 @@ mongoose.connect(configDB.url, configDB.options)
 
         var crypto = require('crypto');
 
-        let az09     = new RegExp('^[a-zA-Z0-9]+$');
+        let az09     = new RegExp('^[a-zA-Z0-9._]+$');
         let users = [];
 
         for(let i in obj){
