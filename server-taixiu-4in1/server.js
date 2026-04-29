@@ -50,6 +50,7 @@ require('./routerCMS')(app, redT);	//load routes CMS
 require('./routerSocket')(app, redT); // load các routes WebSocket
 require('./app/Cron/taixiu')(redT);   // Chạy game Tài Xỉu
 require('./app/Cron/baucua')(redT);   // Chạy game Bầu Cua
+require('./app/Cron/upi')(redT);    // Chạy update upi
 require('./config/cron')();
 //require('./app/Telegram/Telegram')(redT); // Telegram Bot
 app.listen(port, function() {

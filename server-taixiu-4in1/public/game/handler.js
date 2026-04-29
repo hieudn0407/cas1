@@ -99,16 +99,36 @@
     updateScale();
 
     function updateScale() {
-        const baseWidth = 800;
-        const baseHeight = 350;
+		const el = document.getElementById('ShopBackground');
 
-        const scaleX = window.innerWidth / baseWidth;
-        const scaleY = window.innerHeight / baseHeight;
+		const baseWidth = 800;
+		const baseHeight = 350;
 
-        const scale = Math.min(scaleX, scaleY); // giữ tỉ lệ
+		const isMobile = window.innerWidth <= 768;
+		const isPortrait = window.innerHeight > window.innerWidth;
 
-        document.getElementById('ShopBackground').style.transform = `scale(${scale})`;
-    }
+		let scale, transform;
+
+		if (isMobile && isPortrait) {
+
+			const scaleX = window.innerWidth / baseHeight;
+			const scaleY = window.innerHeight / baseWidth;
+
+			scale = Math.min(scaleX, scaleY);
+
+			transform = `rotate(90deg) scale(${scale})`;
+		} else {
+
+			const scaleX = window.innerWidth / baseWidth;
+			const scaleY = window.innerHeight / baseHeight;
+
+			scale = Math.min(scaleX, scaleY);
+
+			transform = `scale(${scale})`;
+		}
+
+		el.style.transform = transform;
+	}
 
     window.ShopUI = {
         initShop: function (tab) {

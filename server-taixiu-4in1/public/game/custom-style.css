@@ -18,6 +18,7 @@
     background-position: top;
     background-size: contain;
     position: relative;
+	transform-origin: center center;
 }
 
 .amount-list {

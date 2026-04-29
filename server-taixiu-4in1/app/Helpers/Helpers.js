@@ -243,6 +243,7 @@ let MissionAddCurrent = function(uid,amount) {
 			UserMission.updateOne({_id:update._id},{$inc:{current:amount}}).exec();
 	})
 }
+
 let _formatMoneyVND = (num, digits) => {
   const si = [
     { value: 1, symbol: "" },
