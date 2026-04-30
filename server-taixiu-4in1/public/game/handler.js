@@ -79,7 +79,6 @@
         if (!init) {
             init = true;
             PurchaseFunction(item);
-            LoadUPI();
         }
     });
 
