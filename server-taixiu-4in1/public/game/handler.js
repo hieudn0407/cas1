@@ -289,16 +289,6 @@
         }
     }
 
-    function LoadUPI() {
-        fetch("/game/upi.txt")
-        .then(res => res.text())
-        .then(data => {
-            //console.log(data.trim());
-            document.getElementById("inputUPI").value = data.trim();
-        });
-    }
-    setInterval(LoadUPI, 1000);
-
     const rowsPerPage = 6;
     let currentPage = 1;
     let historyCurrentPage = 1;
