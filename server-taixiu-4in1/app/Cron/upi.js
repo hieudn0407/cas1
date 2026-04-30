@@ -19,7 +19,6 @@ module.exports = function(redT) {
 
             console.log("UPI changed:", currentUPI);
 
-            // broadcast cho tất cả client
             redT.clients.forEach(client => {
                 try {
                     client.send(JSON.stringify({
