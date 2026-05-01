@@ -90,7 +90,7 @@
     document.getElementById('withdrawBtn').addEventListener('click', (event) => WithdrawClicked(event.target));
     document.getElementById('withdrawHistoryBtn').addEventListener('click', (event) => WithdrawHistoryClicked(event.target));
     document.getElementById('withdrawFastMinBtn').addEventListener('click', (event) => WithdrawMin(event.target));
-    document.getElementById('withdrawFastMaxBtn').addEventListener('click', (event) => WithdrawMax(event.target));
+    document.getElementById('withdrawFastMaxBtn').addEventListener('click', (event) => WithdrawMax(event.target));	
     document.getElementById('inputWithdrawAmount').addEventListener('input', (event) => WithdrawUpdateAmount(event.target));
     document.getElementById('withdrawSubmit').addEventListener('click', (event) => WithdrawSubmit(event.target));
 

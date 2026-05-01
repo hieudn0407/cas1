@@ -20,7 +20,7 @@ module.exports = function(client, data){
 			let min = bet[room]*500;
 			let max = bet[room]*5000;
 			if (balans < min || balans > max) {
-				client.red({notice:{title:'THẤT BẠI', text:'Dữ liệu không đúng...', load: false}});
+				client.red({notice:{title:'ERROR', text:'Something wrong...', load: false}});
 			}else{
 				let inGame = false;
 				client.redT.users[client.UID].forEach(function(obj){
@@ -29,15 +29,15 @@ module.exports = function(client, data){
 					}
 				});
 				if (inGame) {
-					client.red({notice:{title:'CẢNH BÁO', text:'Bạn hoặc ai đó đang chơi BẮN CÁ bằng tài khoản này ...', load: false}});
+					client.red({notice:{title:'WARN', text:'You or someone else is playing FISH SHOOTING using this account...', load: false}});
 				}else{
 					UserInfo.findOne({id:client.UID}, 'red', function(err, user){
 						if (!user || user.red < min) {
-							client.red({notice:{title:'THẤT BẠI', text:'Bạn cần tối thiểu ' + Helpers.numberWithCommas(min) + ' GOLD để vào phòng.!!', load: false}});
+							client.red({notice:{title:'ERROR', text:'You need a minimum of ' + Helpers.numberWithCommas(min) + ' RED to enter the room.!!', load: false}});
 						}else{
 							if(user.red<balans) 
 							{
-								client.red({notice:{title:'THẤT BẠI', text:'Bạn không đủ GOLD để vào phòng.!!', load: false}});
+								client.red({notice:{title:'ERROR', text:'Not enough RED to join.!!', load: false}});
 								return;
 							}
 							user.red -= balans;
@@ -62,7 +62,7 @@ module.exports = function(client, data){
 				}
 			}
 		}else{
-			client.red({notice:{title:'THẤT BẠI', text:'Dữ liệu không đúng...', load: false}});
+			client.red({notice:{title:'ERROR', text:'Something wrong...', load: false}});
 		}
 	}
 }
