@@ -325,16 +325,24 @@
 
 .toast-msg {
     position: absolute;
-    background: #222;
+    background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
     color: #fff;
-    padding: 6px 10px;
-    border-radius: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
     font-size: 13px;
+    white-space: nowrap;
+
     opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.25s ease;
+    transform: translate(-50%, -80%) scale(0.8);
+
+    transition: 
+        opacity 0.2s ease,
+        transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+
     pointer-events: none;
-    z-index: 999;
+    z-index: 99999;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 .toast-msg.show {

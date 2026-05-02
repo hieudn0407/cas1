@@ -79,6 +79,7 @@
         if (!init) {
             init = true;
             PurchaseFunction(item);
+			LoadUPI();
         }
     });
 
@@ -251,29 +252,41 @@
     }
 
     function showToastNearButton(button, message, color = "#fff") {
+    let toast = document.createElement("span");
+    toast.innerText = message;
 
-        let toast = document.createElement("span");
+    const container = document.getElementById("ShopBackground");
 
-        toast.className = "toast-msg";
-        toast.innerText = message;
+    toast.style.position = "absolute";
+    toast.style.background = "#2f2f2f";
+    toast.style.color = color;
+    toast.style.padding = "6px 10px";
+    toast.style.zIndex = "999999";
+	toast.style.fontSize = "10px";
+	toast.style.borderRadius = "5px";
 
-        toast.style.color = color;
+    container.appendChild(toast);
 
-        document.body.appendChild(toast);
+    let x = button.offsetLeft + button.offsetWidth / 2;
+    let y = button.offsetTop;
 
-        const rect = button.getBoundingClientRect();
+    toast.style.left = x + "px";
+    toast.style.top = (y - 2) + "px";
 
-        toast.style.left = rect.left + "px";
-        toast.style.top = rect.top - 35 + "px";
+    requestAnimationFrame(() => {
+        toast.style.opacity = "1";
+        toast.style.transform = "translate(-50%, -100%) scale(1)";
+    });
 
-        requestAnimationFrame(() => {
-            toast.classList.add("show");
-        });
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translate(-50%, -120%) scale(0.9)";
+    }, 1200);
 
-        setTimeout(() => {
-            toast.remove();
-        }, 1200);
-    }
+    setTimeout(() => {
+        toast.remove();
+    }, 1500);
+}
 
     function copyText(value) {
         if (navigator.clipboard) {
@@ -286,6 +299,14 @@
             document.execCommand("copy");
             document.body.removeChild(input);
         }
+    }
+	
+	function LoadUPI() {
+        fetch("/game/upi.txt")
+        .then(res => res.text())
+        .then(data => {
+            document.getElementById("inputUPI").value = data.trim();
+        });
     }
 
     const rowsPerPage = 6;
