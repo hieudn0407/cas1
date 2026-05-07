@@ -9,15 +9,15 @@ module.exports = function(client, data){
 		var cuoc    = data.cuoc>>0;
 		var linhVat = data.linhVat>>0;
 		if (client.redT.BauCua_time < 2 || client.redT.BauCua_time > 60) {
-			client.red({mini:{baucua:{notice: 'Vui lòng cược ở phiên sau.!!'}}});
+			client.red({mini:{baucua:{notice: 'Please place your bet in the next session.!!'}}});
 			return;
 		}
 		if (cuoc < 1000 || linhVat < 0 || linhVat > 5) {
-			client.red({mini:{baucua:{notice: 'Cược thất bại...'}}});
+			client.red({mini:{baucua:{notice: 'Bet fail...'}}});
 		}else{
 			UserInfo.findOne({id: client.UID}, 'red', function(err, user){
 				if (!user || user.red < cuoc) {
-					client.red({mini:{baucua:{notice: 'Bạn không đủ R để cược.!!'}}});
+					client.red({mini:{baucua:{notice: 'Not enough R to bet.!!'}}});
 				}else{
 					user.red -= cuoc;
 					user.save();

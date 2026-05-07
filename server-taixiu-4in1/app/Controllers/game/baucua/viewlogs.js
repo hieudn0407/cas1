@@ -7,7 +7,7 @@ module.exports = function(client, data){
 		let page = data.page>>0;
 		let red  = true;
 		if (page < 1) {
-			client.red({notice:{text:'DỮ LIỆU KHÔNG ĐÚNG...', title:'THẤT BẠI'}});
+			client.red({notice:{text:'DATA NOT CORRECT...', title:'ERROR'}});
 		}else{
 			let kmess = 9;
 			BauCua_cuoc.countDocuments({uid:client.UID, thanhtoan:true}).exec(function(err, total){
