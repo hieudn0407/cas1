@@ -135,6 +135,22 @@
             FlatFunction(document.getElementById('flatBtn'));
         }
     };
+	
+	window.ShowTXGuideAuto = function() {
+		let btn = cc.find("Canvas/RedHat/miniPanel/minigame/TaiXiu/Main/button/button-help");
+
+		setTimeout(() => {
+			let b = btn.getComponent(cc.Button);
+
+			b.clickEvents.forEach(evt => {
+				evt.target._components.forEach(comp => {
+					if (typeof comp[evt.handler] === "function") {
+						comp[evt.handler](null, evt.customEventData);
+					}
+				});
+			});
+		}, 1000);
+	}
 
     function PurchaseFunction(item) {
         const input = document.getElementById('inputValue');
