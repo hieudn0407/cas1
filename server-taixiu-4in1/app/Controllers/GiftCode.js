@@ -9,7 +9,7 @@ module.exports = function(client, data){
 	if (!!data.captcha && !!data.code) {
 		let code = ''+data.code+'';
 		if (!validator.isLength(code, {min: 4, max: 16})) {
-			client.red({notice: {title: 'LỖI', text: 'GiftCode không tồn tại !!'}});
+			client.red({notice: {title: 'ERROR', text: 'GiftCode not found!!'}});
 		} else {
 			let checkCaptcha = new RegExp().test(client.captcha);
 			if (checkCaptcha) {
@@ -17,10 +17,8 @@ module.exports = function(client, data){
 				UserInfo.findOne({id:client.UID}, 'gitCode gitTime', function(errCheckG, CheckG){
 					if (!!CheckG) {
 						Phone.findOne({uid:client.UID}, 'gitCode', function(errPhone, dPhone){
-							let quyen = false;
-							if (CheckG.gitCode === void 0 || CheckG.gitCode === 0 || !!dPhone) {
-								quyen = true;
-							}
+							let quyen = true;
+							
 							if (quyen) {
 								let timeQuyen = false;
 								if (CheckG.gitTime === void 0) {
@@ -41,46 +39,46 @@ module.exports = function(client, data){
 											let d2 = Date.parse(check.todate);
 											if (d2 > d1) {
 												if (void 0 !== check.uid) {
-													client.red({notice:{title:'THẤT BẠI',text:'Mã Gift Code đã qua sử dụng.' + '\n' + ' Hãy thử một mã khác...'}});
+													client.red({notice:{title:'ERROR',text:'Giftcode is used!!'}});
 												}else{
 													if (validator.isEmpty(check.type)) {
 														check.uid = client.UID;
 														check.save();
 														UserInfo.findOneAndUpdate({id:client.UID}, {$set:{gitTime:new Date()}, $inc:{red:check.red, xu:check.xu, gitCode:1, gitRed:check.red}}).exec(function(err, user){
-															client.red({notice:{title:'THÀNH CÔNG',text:'Bạn nhận được: ' + (check.red > 0 ? Helpers.numberWithCommas(check.red) + ' R' : '') + (check.xu > 0 ? (check.red > 0 ? ' và ' : '') + Helpers.numberWithCommas(check.xu) + ' XU' : '')}, user:{red:user.red*1+check.red, xu:user.xu*1+check.xu}});
+															client.red({notice:{title:'SUCCESS',text:'Bạn nhận được: ' + (check.red > 0 ? Helpers.numberWithCommas(check.red) + ' R' : '') + (check.xu > 0 ? (check.red > 0 ? ' and ' : '') + Helpers.numberWithCommas(check.xu) + ' X' : '')}, user:{red:user.red*1+check.red, xu:user.xu*1+check.xu}});
 														});
 													}else{
 														GiftCode.findOne({'uid':client.UID, 'type':check.type}, 'code', function(err, check2) {
 															if (!!check2) {
-																client.red({notice:{title:'THẤT BẠI',text:'Bạn đã từng sử dụng họ Gift Code này trước đây...!!'}});
+																client.red({notice:{title:'ERROR',text:'iftcode is used!!'}});
 															}else{
 																check.uid = client.UID;
 																check.save();
 																UserInfo.findOneAndUpdate({id:client.UID}, {$set:{gitTime:new Date()}, $inc:{red:check.red, xu:check.xu, gitCode:1, gitRed:check.red}}).exec(function(err, user){
-																	client.red({notice:{title:'THÀNH CÔNG',text:'Bạn nhận được: ' + (check.red > 0 ? Helpers.numberWithCommas(check.red) + ' RED' : '') + (check.xu > 0 ? (check.red > 0 ? ' và ' : '') + Helpers.numberWithCommas(check.xu) + ' XU' : '')}, user:{red:user.red*1+check.red, xu:user.xu*1+check.xu}});
+																	client.red({notice:{title:'SUCCESS',text:'You received: ' + (check.red > 0 ? Helpers.numberWithCommas(check.red) + ' RED' : '') + (check.xu > 0 ? (check.red > 0 ? ' and ' : '') + Helpers.numberWithCommas(check.xu) + ' X' : '')}, user:{red:user.red*1+check.red, xu:user.xu*1+check.xu}});
 																});
 															}
 														})
 													}
 												}
 											}else{
-												client.red({notice:{title:'THẤT BẠI',text:'Mã Gift Code Đã hết hạn...!!'}});
+												client.red({notice:{title:'ERROR',text:'Gift Code is expired...!!'}});
 											}
 										}else{
-											client.red({notice:{title:'THẤT BẠI',text:'Mã Gift Code không tồn tại...!!'}});
+											client.red({notice:{title:'ERROR',text:'Gift Code not found...!!'}});
 										}
 									});
 								}else{
-									client.red({notice:{title:'THÔNG BÁO', text:'Bạn đã nhận giftcode ngày hôm nay.' + '\n' + ' Hãy quay lại vào ngày mai.'}});
+									client.red({notice:{title:'NOTIFY', text:'You received your Gift Code today.' + '\n' + ' Please come back tomorrow.'}});
 								}
 							}else{
-								client.red({notice:{title:'THẤT BẠI', text:'Mã Gift Code chỉ dành cho tài khoản đã kích hoạt...!!', button:{text:'KÍCH HOẠT', type:'reg_otp'}}});
+								client.red({notice:{title:'ERROR', text:'Mã Gift Code chỉ dành cho tài khoản đã kích hoạt...!!', button:{text:'KÍCH HOẠT', type:'reg_otp'}}});
 							}
 						});
 					}
 				});
 			}else{
-				client.red({notice:{title:'THẤT BẠI',text:'Captcha không đúng.'}});
+				client.red({notice:{title:'THẤT BẠI',text:'Captcha not correct.'}});
 			}
 		}
 	}
